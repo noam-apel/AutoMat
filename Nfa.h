@@ -28,10 +28,12 @@ struct State_Pair {
 };
 
 class NFA {
+    friend struct DFA;
+
 private:
     std::vector<std::unique_ptr<State>> all_states;
     int next_id = 0;
-    std::vector<State *> epsilon_closure(std::vector<State *> states) const;
+    std::vector<State *> epsilon_closure(const std::vector<State *> &states) const;
     std::set<char> alphabet;
 
 public:

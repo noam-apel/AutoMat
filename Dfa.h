@@ -11,7 +11,7 @@
 #include <string>
 #include "Nfa.h"
 
-class DFA {
+struct DFA {
     int start_state = 0;
     std::vector<bool> is_accepting;
     std::vector<std::map<char, int>> transitions;

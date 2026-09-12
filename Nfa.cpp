@@ -53,28 +53,31 @@ NFA NFABuilder::build(State_Pair final_pair) {
     return std::move(instance);
 }
 
-std::vector<State *> NFA::epsilon_closure(std::vector<State *> states) const {
+std::vector<State *> NFA::epsilon_closure(const std::vector<State *> &states) const {
     std::vector<bool> visited(all_states.size(), false);
     std::vector<State *> res;
+    std::vector<State *> stack;
+
     for (State *s: states) {
         if (s && !visited[s->id]) {
             visited[s->id] = true;
             res.push_back(s);
+            stack.push_back(s);
         }
     }
 
-    while (!states.empty()) {
-        State *curr = states.back();
-        states.pop_back();
+    while (!stack.empty()) {
+        State *curr = stack.back();
+        stack.pop_back();
+
         for (State *nxt: curr->epsilon_transitions) {
             if (!visited[nxt->id]) {
                 visited[nxt->id] = true;
-                states.push_back(nxt);
+                stack.push_back(nxt);
                 res.push_back(nxt);
             }
         }
     }
-
 
     return res;
 }
