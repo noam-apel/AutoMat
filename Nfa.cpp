@@ -14,6 +14,7 @@ State_Pair NFABuilder::create_literal(char c) {
     State *start = instance.create_state();
     State *end = instance.create_state();
     start->transitions.push_back({c, end});
+    instance.add_to_alphabet(c);
     return State_Pair(start, end);
 }
 

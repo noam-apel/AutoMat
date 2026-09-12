@@ -11,4 +11,6 @@ add_executable(AutoMat main.cpp
         Nfa.cpp
         Nfa.h
         NfaCompiler.cpp
-        NfaCompiler.h)
+        NfaCompiler.h
+        Dfa.cpp
+        Dfa.h)

@@ -8,6 +8,7 @@
 #include <memory>
 #include <utility>
 #include <vector>
+#include <set>
 
 struct State {
     int id;
@@ -31,6 +32,7 @@ private:
     std::vector<std::unique_ptr<State>> all_states;
     int next_id = 0;
     std::vector<State *> epsilon_closure(std::vector<State *> states) const;
+    std::set<char> alphabet;
 
 public:
     State *start_state = nullptr;
@@ -38,6 +40,13 @@ public:
     State *create_state();
     bool match(const std::string &input) const;
 
+    void add_to_alphabet(char c) {
+        alphabet.insert(c);
+    }
+
+    const std::set<char> &get_alphabet() const {
+        return alphabet;
+    }
 };
 
 class NFABuilder {

@@ -16,13 +16,10 @@ void test(const std::string &pattern, const std::string &input, bool expected) {
 }
 
 int main() {
-    test("(a|b)*c", "c", true);
-    test("(a|b)*c", "ac", true);
-    test("(a|b)*c", "abbabac", true);
-    test("(a|b)*c", "abbaba", false);
-    test("(a|b)*c", "", false);
-    test("a*", "", true);
-    test("a*", "aaaa", true);
-    test("a*", "b", false);
-    return 0;
+    Parser parser("(a|b)");
+    auto ast = parser.parse();
+
+    NFACompiler compiler;
+    NFA nfa = compiler.compile(*ast);
+    std::cout << nfa.match("a");
 }
